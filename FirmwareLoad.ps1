@@ -35,7 +35,7 @@ foreach($dev in $devs)
             }
 
             #TODO - need to make sure this works from DMPS-150s and DMPS-350s              
-            if(($file.name.ToUpper() -split '(?=_)' | Select -First 1) -eq $dev.Prompt)
+            elseif(($file.name.ToUpper() -split '(?=_)' | Select -First 1) -eq $dev.Prompt)
             {
                 Write-Host "$($file.name) : $($dev.prompt)"
             }    
