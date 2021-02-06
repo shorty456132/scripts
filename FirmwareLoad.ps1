@@ -1,7 +1,12 @@
-﻿Import-Module PSCrestron
+﻿#make sure script is in same folder as firmware
+#will compare devices in autodiscovery to files in firmware folder and send correct files to correct devices
+#currently only for puf files
+#still some TODOs to implement
 
-$user = 'vision'
-$pass = 'vision'
+Import-Module PSCrestron
+
+$user = 'admin'
+$pass = 'admin'
 
 Write-Host "finding devices"
 
@@ -23,12 +28,13 @@ foreach($dev in $devs)
         {    
             #TODO - make sure firmware file is newer than currently on device
                        
+            #TSS panels use the TSW firmware
             if($dev.prompt -match "TSS" -and $file.name -match 'TSW')
             {
                 Write-Host "$($file.Name) : $($dev.Prompt)"
             }
 
-            #need to find a way to discern from dmps3-4k-350 and dmps3-4k-150                
+            #TODO - need to make sure this works from DMPS-150s and DMPS-350s              
             if(($file.name.ToUpper() -split '(?=_)' | Select -First 1) -eq $dev.Prompt)
             {
                 Write-Host "$($file.name) : $($dev.prompt)"
@@ -36,5 +42,8 @@ foreach($dev in $devs)
         }
     }
 }
+
+
+#TODO - refactor for function to send files and function to update device
 
 ##crestron-sendfirmware
