@@ -25,8 +25,8 @@ function CheckVersion ($FWFile, $Device)
     }
 }
 
-$user = 'vision'
-$pass = 'vision'
+$user = 'admin'
+$pass = 'admin'
 
 Write-Host "finding devices"
 
